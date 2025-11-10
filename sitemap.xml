@@ -13,8 +13,8 @@
   <url>
     <loc>https://qrtquick.github.io/Shinpuru-Sachi/#features</loc>
     <lastmod>2025-11-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <!-- Creator Section -->
@@ -30,7 +30,7 @@
     <loc>https://qrtquick.github.io/Shinpuru-Sachi/#showcase</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
 
   <!-- Join Section -->
@@ -38,7 +38,15 @@
     <loc>https://qrtquick.github.io/Shinpuru-Sachi/#join</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Download / Installer Section -->
+  <url>
+    <loc>https://qrtquick.github.io/Shinpuru-Sachi/#download</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
 
 </urlset>
