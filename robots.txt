@@ -1,0 +1,9 @@
+# robots.txt for Quick Red Tech / Shinpuru-Sachi website
+
+User-agent: *
+Disallow: /private/
+Disallow: /admin/
+Allow: /
+
+# Sitemap (if you have one)
+# Sitemap:https://qrtquick.github.io/Shinpuru-Sachi/sitemap.xml
