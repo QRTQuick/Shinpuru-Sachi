@@ -38,6 +38,8 @@ Developed by **Chisom Life Eke**, founder of **Quick Red Tech**.
   - It is primarily a terminal search tool and does not replace full web browsers.  
 
 ---
+## 🔍 SEO Keywords (for discovery)
+>Shinpuru-Sachi, Sachi cmd browser, terminal browser, Quick Red Tech, command-line search, Python search tool
 
 ## Installation
 
@@ -46,3 +48,7 @@ Developed by **Chisom Life Eke**, founder of **Quick Red Tech**.
 ```bash
 git clone https://github.com/QRTQuick/Shinpuru-Sachi.git
 cd Shinpuru-Sachi
+
+
+
+
