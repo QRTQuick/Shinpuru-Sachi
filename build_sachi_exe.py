@@ -6,7 +6,7 @@ from pathlib import Path
 print("🧠 Building Sachi EXE...")
 
 # Path to your main script
-current_dir = Path(__file__).parent
+current_dir =  Path(__file__).parent
 script_file = current_dir / "Shinpuru-Sachi.py"
 
 if not script_file.exists():
