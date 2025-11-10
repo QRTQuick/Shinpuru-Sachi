@@ -3,7 +3,5 @@
 User-agent: *
 Disallow: /private/
 Disallow: /admin/
-Allow: /
 
-# Sitemap (if you have one)
-# Sitemap:https://qrtquick.github.io/Shinpuru-Sachi/sitemap.xml
+Sitemap: https://qrtquick.github.io/Shinpuru-Sachi/sitemap.xml
