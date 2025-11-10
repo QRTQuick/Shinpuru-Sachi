@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shinpuru-Sachi — Smart Terminal Assistant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
+
+    body {
+      background: radial-gradient(circle at center, #050505, #000);
+      color: #f0f0f0;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* Animated background gradient */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle at top left, rgba(255,75,92,0.1), transparent 70%),
+                  radial-gradient(circle at bottom right, rgba(255,75,92,0.05), transparent 70%);
+      animation: pulse 6s infinite alternate ease-in-out;
+      z-index: 0;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(1.1); opacity: 1; }
+    }
+
+    header {
+      text-align: center;
+      padding: 7rem 1rem 4rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    header h1 {
+      font-size: 4.5rem;
+      color: #ff4b5c;
+      text-shadow: 0 0 30px rgba(255, 75, 92, 0.8);
+      letter-spacing: 1px;
+      animation: glowIn 1s ease forwards;
+    }
+
+    @keyframes glowIn {
+      0% { transform: scale(0.9); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      color: #bbb;
+      max-width: 720px;
+      margin-inline: auto;
+      line-height: 1.7;
+      animation: fadeIn 1.5s ease forwards 0.6s;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+
+    .download-btn {
+      display: inline-block;
+      margin-top: 2.5rem;
+      padding: 16px 40px;
+      background: linear-gradient(135deg, #ff4b5c, #d72638);
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 14px;
+      transition: 0.4s ease;
+      box-shadow: 0 0 30px rgba(255, 75, 92, 0.6);
+      animation: fadeInUp 1s ease forwards 1s;
+      opacity: 0;
+    }
+
+    .download-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 40px rgba(255, 75, 92, 0.9);
+      background: linear-gradient(135deg, #ff5f6d, #ff4b5c);
+    }
+
+    @keyframes fadeInUp {
+      0% { transform: translateY(20px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    .features {
+      display: grid;
+      gap: 1.3rem;
+      max-width: 850px;
+      margin: 6rem auto;
+      padding: 0 1rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .feature {
+      background: rgba(255,255,255,0.04);
+      border-left: 5px solid #ff4b5c;
+      padding: 1.5rem;
+      border-radius: 12px;
+      backdrop-filter: blur(8px);
+      transition: 0.3s ease;
+    }
+
+    .feature:hover {
+      background: rgba(255, 75, 92, 0.15);
+      transform: translateX(5px);
+      box-shadow: 0 0 20px rgba(255,75,92,0.2);
+    }
+
+    /* Creator section */
+    .creator {
+      background: linear-gradient(145deg, #101010, #181818);
+      text-align: center;
+      padding: 5rem 2rem;
+      border-top: 1px solid #222;
+      position: relative;
+    }
+
+    .creator h2 {
+      color: #ff4b5c;
+      margin-bottom: 1rem;
+      font-size: 2.5rem;
+    }
+
+    .creator p {
+      color: #ccc;
+      max-width: 750px;
+      margin: 0 auto;
+      line-height: 1.8;
+      font-size: 1.1rem;
+    }
+
+    /* Showcase */
+    .showcase {
+      padding: 5rem 2rem;
+      text-align: center;
+      background: linear-gradient(180deg, #0d0d0d, #141414);
+    }
+
+    .showcase h2 {
+      color: #ff4b5c;
+      font-size: 2.6rem;
+      margin-bottom: 2.5rem;
+      letter-spacing: 1px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      max-width: 950px;
+      margin: auto;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 0 20px rgba(255,75,92,0.1);
+      transition: 0.3s;
+      backdrop-filter: blur(6px);
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 30px rgba(255,75,92,0.4);
+    }
+
+    .card h3 {
+      color: #ff4b5c;
+      margin-bottom: 0.7rem;
+    }
+
+    /* Join section */
+    .join {
+      text-align: center;
+      padding: 6rem 2rem;
+      background: linear-gradient(160deg, #111, #0a0a0a);
+      color: #f1f1f1;
+    }
+
+    .join h2 {
+      font-size: 2.3rem;
+      color: #ff4b5c;
+      margin-bottom: 1.2rem;
+    }
+
+    .join p {
+      font-size: 1.1rem;
+      color: #bbb;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+
+    .join a {
+      display: inline-block;
+      padding: 14px 36px;
+      background: linear-gradient(135deg, #ff4b5c, #d72638);
+      border-radius: 10px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 0 25px rgba(255,75,92,0.5);
+      transition: 0.3s;
+    }
+
+    .join a:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 35px rgba(255,75,92,0.8);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #777;
+      background: #0a0a0a;
+      border-top: 1px solid #222;
+    }
+
+    footer a {
+      color: #ff4b5c;
+      text-decoration: none;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+  /* Existing styles remain unchanged ... */
+
+  /* ===== Mobile Responsiveness ===== */
+  @media (max-width: 1024px) {
+    header h1 { font-size: 3.5rem; }
+    header p { font-size: 1.1rem; }
+    .download-btn { padding: 14px 32px; }
+    .creator h2 { font-size: 2.2rem; }
+    .creator p { font-size: 1rem; }
+    .showcase h2 { font-size: 2.2rem; }
+    .cards { gap: 1.5rem; }
+    .card { padding: 1.5rem; }
+    .join h2 { font-size: 2rem; }
+    .join p { font-size: 1rem; }
+  }
+
+  @media (max-width: 768px) {
+    header h1 { font-size: 3rem; }
+    header p { font-size: 1rem; }
+    .download-btn { padding: 12px 28px; font-size: 0.95rem; }
+    .creator h2 { font-size: 2rem; }
+    .creator p { font-size: 0.95rem; }
+    .showcase h2 { font-size: 2rem; }
+    .cards { grid-template-columns: 1fr; gap: 1rem; }
+    .card { padding: 1.2rem; }
+    .join h2 { font-size: 1.8rem; }
+    .join p { font-size: 0.95rem; max-width: 90%; }
+    .join a { padding: 12px 28px; font-size: 0.95rem; }
+  }
+
+  @media (max-width: 480px) {
+    header { padding: 5rem 1rem 3rem; }
+    header h1 { font-size: 2.4rem; }
+    header p { font-size: 0.9rem; }
+    .download-btn { padding: 10px 24px; font-size: 0.85rem; }
+    .features { margin: 4rem auto; padding: 0 0.5rem; }
+    .feature { padding: 1rem; font-size: 0.9rem; }
+    .creator { padding: 3.5rem 1rem; }
+    .creator h2 { font-size: 1.8rem; }
+    .creator p { font-size: 0.9rem; line-height: 1.5; }
+    .showcase { padding: 3.5rem 1rem; }
+    .showcase h2 { font-size: 1.8rem; }
+    .cards { grid-template-columns: 1fr; gap: 0.8rem; }
+    .card { padding: 1rem; font-size: 0.9rem; }
+    .join { padding: 4rem 1rem; }
+    .join h2 { font-size: 1.6rem; }
+    .join p { font-size: 0.85rem; }
+    .join a { padding: 10px 24px; font-size: 0.85rem; }
+  }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Shinpuru-Sachi</h1>
+    <p>⚙️ The futuristic AI terminal assistant redefining productivity.  
+      Created for dreamers, developers, and creators who believe in simplicity and speed.</p>
+    <a class="download-btn" href="https://github.com/QRTQuick/Shinpuru-Sachi/raw/main/installer_sachi.exe">
+      ⬇️ Download Installer (.exe)
+    </a>
+  </header>
+
+  <section class="features">
+    <div class="feature"><strong>🔍 Instant Search:</strong> Search the web instantly with <code>Sachi -S "your query"</code>.</div>
+    <div class="feature"><strong>⚡ One Command:</strong> Add Sachi to PATH — access it globally, anywhere.</div>
+    <div class="feature"><strong>💬 Smart Output:</strong> Minimalist, clean, human-like terminal responses.</div>
+    <div class="feature"><strong>🔔 Notifications:</strong> Optional desktop popups for real-time results.</div>
+  </section>
+
+  <section class="creator">
+    <h2>Meet the Creator</h2>
+    <p><strong>Chisom Life Eke</strong> — a 16-year-old visionary from 🇳🇬 Nigeria and the founder of 
+    <strong>Quick Red Tech</strong>.  
+    His goal: merging technology with creativity. From AI to automation, every tool he builds — including <em>Sachi</em> — reflects innovation and purpose.</p>
+  </section>
+
+  <section class="showcase">
+    <h2>🚀 Other Creations by Quick Red Tech</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>🧠 TickMaxZ AI</h3>
+        <p>AI-powered image recognition built with Python + C++, featuring PySide6 GUI and local model inference.</p>
+      </div>
+      <div class="card">
+        <h3>💬 RedCore Chat</h3>
+        <p>A futuristic chat app for gamers — RedCore coins, group chats, and real-time tournaments.</p>
+      </div>
+      <div class="card">
+        <h3>📦 RedLog Tracker</h3>
+        <p>Advanced logistics system with Flask backend, QR tracking, and real-time shipment data.</p>
+      </div>
+      <div class="card">
+        <h3>🎯 StackCheckMate</h3>
+        <p>A developer-focused analyzer that helps identify, compare, and auto-install programming stacks smartly.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="join">
+    <h2>Join the Quick Red Revolution</h2>
+    <p>Follow <strong>Quick Red Tech</strong> — where creativity meets computation.  
+    Stay tuned for more next-gen software that pushes the boundaries of innovation.</p>
+    <a href="https://github.com/QRTQuick">⚡ Visit Quick Red Tech</a>
+  </section>
+
+  <footer>
+    © 2025 <strong>Quick Red Tech</strong> — Designed & Engineered by <strong>Chisom Life Eke</strong>.  
+    <br><a href="https://github.com/QRTQuick/Shinpuru-Sachi">View Sachi on GitHub</a>
+  </footer>
+
+</body>
+</html>
