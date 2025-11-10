@@ -25,8 +25,7 @@ dist_dir.mkdir(exist_ok=True)
 pyinstaller_cmd = [
     sys.executable,
     "-m", "PyInstaller",
-    "--onefile",
-    "--noconsole",  # remove this if you want terminal output
+    "--onefile",  
     "--distpath", str(dist_dir),
     "--name", "Sachi",
     str(script_file)
