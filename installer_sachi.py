@@ -2,8 +2,13 @@ import os
 import shutil
 import sys
 import winreg
-from pathlib import Path
 import ctypes
+import urllib.request
+from pathlib import Path
+
+# === Configuration ===
+DOWNLOAD_URL = "https://github.com/QRTQuick/Shinpuru-Sachi/raw/main/dist/Sachi.exe"  # ✅ Direct link to .exe file
+FILE_NAME = "Sachi.exe"
 
 # --- Check for admin privileges ---
 def is_admin():
@@ -15,7 +20,6 @@ def is_admin():
 if not is_admin():
     print("⚠️ Administrator privileges are required to modify PATH system-wide.")
     print("Attempting to relaunch as admin...")
-    # Re-run the script with admin rights
     ctypes.windll.shell32.ShellExecuteW(
         None, "runas", sys.executable, " ".join(f'"{arg}"' for arg in sys.argv), None, 1
     )
@@ -25,7 +29,7 @@ print("🧠 Sachi Installer (Running as Administrator)")
 print("============================================")
 print("This installer will:")
 print("1. Create a folder at: C:\\Users\\<you>\\SachiTools")
-print("2. Copy Shinpuru-Sachi.py there")
+print("2. Download the latest Sachi.exe")
 print("3. Create a launcher (Sachi.bat)")
 print("4. Add SachiTools to your PATH (so you can type 'Sachi' anywhere)\n")
 
@@ -37,29 +41,28 @@ if confirm != "y":
 # --- Setup paths ---
 user = os.getlogin()
 sachi_dir = Path(f"C:/Users/{user}/SachiTools")
-sachi_py = sachi_dir / "Shinpuru-Sachi.py"
+sachi_exe = sachi_dir / FILE_NAME
 sachi_bat = sachi_dir / "Sachi.bat"
 
 # --- Create SachiTools folder ---
 os.makedirs(sachi_dir, exist_ok=True)
 
-# --- Copy your script there (assuming it's in same folder as installer) ---
-current_dir = Path(__file__).parent
-src_script = current_dir / "Shinpuru-Sachi.py"
-if not src_script.exists():
-    print("❌ Could not find Shinpuru-Sachi.py in this folder.")
+# --- Download latest exe ---
+print("⬇️ Downloading latest Sachi.exe ...")
+try:
+    urllib.request.urlretrieve(DOWNLOAD_URL, sachi_exe)
+    print(f"✅ Downloaded to {sachi_exe}")
+except Exception as e:
+    print(f"❌ Failed to download file: {e}")
     sys.exit(1)
 
-shutil.copy2(src_script, sachi_py)
-print(f"✅ Copied Shinpuru-Sachi.py to {sachi_dir}")
-
-# --- Create the launcher .bat file ---
-bat_content = f'@echo off\npython "{sachi_py}" %*\n'
+# --- Create launcher ---
+bat_content = f'@echo off\n"{sachi_exe}" %*\n'
 with open(sachi_bat, "w") as f:
     f.write(bat_content)
 print("✅ Created Sachi.bat launcher")
 
-# --- Add SachiTools to PATH (user variable) ---
+# --- Add to PATH ---
 def add_to_path(dir_path):
     try:
         key = winreg.OpenKey(
