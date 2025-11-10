@@ -4,8 +4,8 @@
   <!-- Homepage -->
   <url>
     <loc>https://qrtquick.github.io/Shinpuru-Sachi/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2025-11-10</lastmod> <!-- Update this daily if content changes -->
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
