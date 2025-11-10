@@ -3,9 +3,26 @@ import shutil
 import sys
 import winreg
 from pathlib import Path
+import ctypes
 
-print("🧠 Sachi Installer")
-print("==================")
+# --- Check for admin privileges ---
+def is_admin():
+    try:
+        return ctypes.windll.shell32.IsUserAnAdmin()
+    except:
+        return False
+
+if not is_admin():
+    print("⚠️ Administrator privileges are required to modify PATH system-wide.")
+    print("Attempting to relaunch as admin...")
+    # Re-run the script with admin rights
+    ctypes.windll.shell32.ShellExecuteW(
+        None, "runas", sys.executable, " ".join(f'"{arg}"' for arg in sys.argv), None, 1
+    )
+    sys.exit(0)
+
+print("🧠 Sachi Installer (Running as Administrator)")
+print("============================================")
 print("This installer will:")
 print("1. Create a folder at: C:\\Users\\<you>\\SachiTools")
 print("2. Copy Shinpuru-Sachi.py there")
@@ -69,4 +86,4 @@ add_to_path(str(sachi_dir))
 
 print("\n🎉 Installation complete!")
 print("Now open a NEW terminal and type:")
-print('  Sachi -S "who owns gpt"')
+print('  Sachi -S "who owns stackcheckmate"')
